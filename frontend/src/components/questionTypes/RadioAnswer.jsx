@@ -1,18 +1,25 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 import { Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { setNextQuestionId } from '../../slices/activeQuestionSlice.js';
+import { setAnswer } from '../../slices/answerSlice.js';
 
 const RadioAnswer = (props) => {
-	const { question, options } = props;
-  const onSubmit = (value) => {
-    console.log(value);
+	const { question, options, id, progressId } = props;
+  const dispatch = useDispatch();
+  const onSubmit = ({ answer }) => {
+    dispatch(setAnswer({ id, answer }));
+    if (id === progressId) {
+      dispatch(setNextQuestionId());
+    }
   };
 
   return (
-    <div className='w-50 mt-3'>
+    <div className='w-100 mt-3'>
       <div className='d-flex flex-column h-100'>
         <div className='container-fluid h-100'>
-          <div className='row justify-content-center align-content-center h-100'>
+          <div className='row h-100'>
             <div className='col-12 col-md-8 col-xxl-6'>
               <Formik onSubmit={onSubmit} initialValues={{ answer: ''}}>
                 {({

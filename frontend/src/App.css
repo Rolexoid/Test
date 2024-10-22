@@ -34,34 +34,14 @@
   width: 5%;
 }
 
-.form-check-input:checked[type="checkbox"] {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.form-check-input:focus[type="checkbox"] {
-  box-shadow: none;
-  border-color: #E0E0E0;
-}
-
-.form-check-input:checked[type="radio"] {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.form-check-input:focus[type="radio"] {
-  box-shadow: none;
-  border-color: #E0E0E0;
-}
-
 .button {
-  background-color: #dc3545;
+  background-color: #B71C1C;
   color: white;
 }
 
 .button:hover
  {
-  background-color: #C62828;
+  background-color: #B71C1C;
   color: white;
   transition: none;
 }
@@ -70,6 +50,31 @@
   background-color: black;
   color: white;
 }
+
+.active-btn {
+  background-color: #B71C1C;
+}
+
+.form-check-input:checked[type="checkbox"] {
+  background-color: #B71C1C;
+  border-color: #B71C1C;
+}
+
+.form-check-input:focus[type="checkbox"] {
+  box-shadow: none;
+  border-color: #E0E0E0;
+}
+
+.form-check-input:checked[type="radio"] {
+  background-color: #B71C1C;
+  border-color: #B71C1C;
+}
+
+.form-check-input:focus[type="radio"] {
+  box-shadow: none;
+  border-color: #E0E0E0;
+}
+
 
 @keyframes App-logo-spin {
   from {

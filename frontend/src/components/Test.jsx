@@ -1,27 +1,40 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import { Stack } from 'react-bootstrap';
 import getComponent from './questionTypes';
 import test from '../data/index.js';
+import cn from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveQuestionId } from '../slices/activeQuestionSlice.js';
 
-
-const renderQuestion = (activeQuestion) => {
-  const { question, options, type, number } = activeQuestion;
+const renderQuestion = (activeQuestion, progressId) => {
+  const { question, options, type, id } = activeQuestion;
   const Component = getComponent(type);
-  return <Component  question={question} options={options} number={number}/>;
+  return <Component  question={question} options={options} id={id} progressId={progressId}/>;
 };
 
 const Test = () => {
-  const [activeNumber, setActiveNumber] = useState(1);
-  const activeQuestion = test.find(({ number}) => number === activeNumber);
+  const dispatch = useDispatch();
+  const { activeId, progressId } = useSelector((state) => state.appControl);
+  // const answers = useSelector((state) => state.answers);
+  // console.log(answers);
+  const activeQuestion = test.find(({ id }) => id === activeId);
+  const setClasses = (id) => {
+    const buttonClasses = cn('p-2', 'mt-2', 'que-btn', {
+      'bg-dark': id < progressId,
+      'active-btn': id === progressId,
+    });
+    return buttonClasses;
+  }
+
   return (
-    <div>
+    <div className='container'>
       <h1>Тестирование</h1>
       <Stack direction="horizontal" gap={3}>
         {test.map((problem) => (
-          <button className="p-2 mt-2 que-btn" key={problem.id} disabled={problem.number > activeNumber} onClick={() => setActiveNumber(problem.number)}></button>
+          <button className={setClasses(problem.id)} key={problem.id} disabled={problem.id > progressId} onClick={() => dispatch(setActiveQuestionId(problem.id))}></button>
         ))}
       </Stack>
-      {renderQuestion(activeQuestion)}
+      {renderQuestion(activeQuestion, progressId)}
     </div>
   ); 
 };

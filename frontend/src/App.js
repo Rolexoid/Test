@@ -1,10 +1,18 @@
 import React from 'react';
 import './App.css';
 import Test from './components/Test';
+import Results from './components/Results.jsx';
+import { useSelector } from 'react-redux';
+import test from './data/index.js';
 
 function App() {
+  const { progressId } = useSelector((state) => state.appControl);
+  const progressQuestion = test.find(({ id }) => id === progressId);
+  if (progressQuestion) {
+    return <Test />;
+  }
   return (
-    <Test />
+      <Results />
   );
 }
 
