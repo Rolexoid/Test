@@ -18,8 +18,9 @@ const Results = () => {
         </tr>
       </thead>
       <tbody>
-        {answers?.map(({ id, answer }) => {
-          const { rightAnswer } = test.find((item) => item.id === id);
+        {test.map(({ id, rightAnswer }) => {
+          const result = answers.find((item) => item.id === id);
+          const answer = result ? result.answer : '';
          return (
         <tr key={id}>
           <td>{id}</td>

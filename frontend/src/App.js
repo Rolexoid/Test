@@ -7,8 +7,10 @@ import test from './data/index.js';
 
 function App() {
   const { progressId } = useSelector((state) => state.appControl);
+  const { seconds } = useSelector((state) => state.timer);
   const progressQuestion = test.find(({ id }) => id === progressId);
-  if (progressQuestion) {
+  console.log(seconds);
+  if (progressQuestion && seconds > 0) {
     return <Test />;
   }
   return (
