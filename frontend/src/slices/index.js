@@ -1,12 +1,42 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from "redux-persist/lib/storage";
 import activeQuestionReducer from './activeQuestionSlice';
 import answerSliceReducer from './answerSlice';
 import timerSliceReducer from './timerSlice';
 
-export default configureStore({
-  reducer: {
-    appControl: activeQuestionReducer,
-    answers: answerSliceReducer,
-    timer: timerSliceReducer,
-  },
+const rootReducer = combineReducers({
+  appControl: activeQuestionReducer,
+  answers: answerSliceReducer,
+  timer: timerSliceReducer,
 });
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from "redux-persist";
 
 const initialState = {
   seconds: 15,
@@ -11,6 +12,11 @@ const timerSlice = createSlice({
     decrement (state, {payload}) {
       state.seconds = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => {
+      return initialState;
+    });
   },
 });
 

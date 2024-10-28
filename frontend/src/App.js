@@ -9,7 +9,6 @@ function App() {
   const { progressId } = useSelector((state) => state.appControl);
   const { seconds } = useSelector((state) => state.timer);
   const progressQuestion = test.find(({ id }) => id === progressId);
-  console.log(seconds);
   if (progressQuestion && seconds > 0) {
     return <Test />;
   }

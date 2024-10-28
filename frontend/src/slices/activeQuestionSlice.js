@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from "redux-persist";
 
 const initialState = {
   activeId: 1,
@@ -16,6 +17,11 @@ const activeQuestionSlice = createSlice({
       state.progressId += 1;
       state.activeId = state.progressId;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => {
+      return initialState;
+    });
   },
 });
 

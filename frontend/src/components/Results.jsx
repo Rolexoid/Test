@@ -2,7 +2,7 @@ import { React } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import test from '../data/index.js';
-
+import { persistor } from '../slices/index.js';
 
 const Results = () => {
   const answersObj = useSelector((state) => state.answers);
@@ -30,6 +30,11 @@ const Results = () => {
         })}
       </tbody>
     </Table>
+    <button
+      type="submit"
+      className="w-20 mt-2 btn button"
+      onClick={() => persistor.purge()}
+    >Пройти тест еще раз</button>
     </div>
   )
 };
